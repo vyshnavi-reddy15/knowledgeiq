@@ -1,0 +1,38 @@
+﻿# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+backend/.venv/
+.venv/
+venv/
+env/
+
+# Environment files
+.env
+*.env
+backend/.env
+
+# Local uploads
+backend/storage/uploads/*
+!backend/storage/uploads/.gitkeep
+
+# Local test files
+test.txt
+test.exe
+
+# Node / Next.js
+node_modules/
+.next/
+out/
+dist/
+.vercel/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
