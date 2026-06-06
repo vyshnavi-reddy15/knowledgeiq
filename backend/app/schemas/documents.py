@@ -9,3 +9,4 @@ class DocumentUploadResponse(BaseModel):
     storage_path: str
     page_count: int
     chunks_created: int
+    vectors_stored: int
