@@ -10,6 +10,7 @@ class ChatSource(BaseModel):
     filename: str
     file_type: str
     chunk_index: int
+    citation_label: str
     content: str
     score: float
     storage_path: str

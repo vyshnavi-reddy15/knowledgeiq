@@ -12,7 +12,7 @@ def parse_document(file_path: Path) -> tuple[str, int]:
     extension = file_path.suffix.lower()
 
     if extension == ".txt":
-        text = file_path.read_text(encoding="utf-8")
+        text = file_path.read_text(encoding="utf-8-sig")
         return text, 1 if text.strip() else 0
 
     if extension == ".pdf":

@@ -54,7 +54,7 @@ async def save_uploaded_file(file: UploadFile) -> DocumentUploadResponse:
         document_id=document_id,
         filename=safe_filename,
         file_type=extension.lstrip("."),
-        status="uploaded",
+        status="processed",
         storage_path=storage_path,
         page_count=page_count,
         chunks_created=len(chunks),

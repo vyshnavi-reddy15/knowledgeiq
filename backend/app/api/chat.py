@@ -20,7 +20,7 @@ def query_chat(request: ChatQueryRequest) -> ChatQueryResponse:
         raise HTTPException(status_code=500, detail=str(exc)) from exc
 
     if not sources:
-        answer = "Based on the retrieved documents: no relevant document chunks were found."
+        answer = "No relevant document chunks were found."
     else:
         context = " ".join(source.content for source in sources)
         answer = f"Based on the retrieved documents: {context}"

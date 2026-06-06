@@ -1,4 +1,5 @@
 from qdrant_client import QdrantClient
+from qdrant_client.http.exceptions import UnexpectedResponse
 
 from app.core.config import settings
 from app.schemas.chat import ChatSource
@@ -14,12 +15,18 @@ def retrieve_sources(question: str) -> list[ChatSource]:
         return []
 
     client = QdrantClient(url=settings.QDRANT_URL)
-    result = client.query_points(
-        collection_name=settings.QDRANT_COLLECTION_NAME,
-        query=embeddings[0],
-        limit=TOP_K,
-        with_payload=True,
-    )
+    try:
+        result = client.query_points(
+            collection_name=settings.QDRANT_COLLECTION_NAME,
+            query=embeddings[0],
+            limit=TOP_K,
+            with_payload=True,
+        )
+    except UnexpectedResponse:
+        return []
+
+    if not result.points:
+        return []
 
     return [
         ChatSource(
@@ -27,6 +34,7 @@ def retrieve_sources(question: str) -> list[ChatSource]:
             filename=point.payload["filename"],
             file_type=point.payload["file_type"],
             chunk_index=point.payload["chunk_index"],
+            citation_label=f'{point.payload["filename"]} - Chunk {point.payload["chunk_index"]}',
             content=point.payload["content"],
             score=point.score,
             storage_path=point.payload["storage_path"],
